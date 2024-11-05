@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class MyFirstOPMode extends LinearOpMode {
+public class MyFirstOpMode_2ndver extends LinearOpMode {
 
     protected DcMotor frontLeft;
     protected DcMotor frontRight;
@@ -30,7 +30,7 @@ public class MyFirstOPMode extends LinearOpMode {
         frontRight.setPower(0.2);
         backLeft.setPower(0.2);
         backRight.setPower(0.2);
-        sleep(1000);
+        sleep(2000);
         frontLeft.setPower(-0.1);
         frontRight.setPower(-0.1);
         backLeft.setPower(-0.1);
@@ -40,27 +40,27 @@ public class MyFirstOPMode extends LinearOpMode {
         frontRight.setPower(0.2);
         backLeft.setPower(-0.1);
         backRight.setPower(0.2);
-        sleep(3150);
-        frontLeft.setPower(0.2);
-        frontRight.setPower(0.2);
-        backLeft.setPower(0.2);
-        backRight.setPower(0.2);
-        sleep(1500);
-        frontLeft.setPower(-0.1);
-        frontRight.setPower(-0.1);
-        backLeft.setPower(-0.1);
-        backRight.setPower(-0.1);
+        sleep(3500);
+        frontLeft.setPower(0.3);
+        frontRight.setPower(0.3);
+        backLeft.setPower(0.3);
+        backRight.setPower(0.3);
+        sleep(4000);
+        frontLeft.setPower(-0.2);
+        frontRight.setPower(-0.2);
+        backLeft.setPower(-0.2);
+        backRight.setPower(-0.2);
         sleep (4000);
         frontLeft.setPower(-0.1);
         frontRight.setPower(0.2);
         backLeft.setPower(0);
         backRight.setPower(0.2);
         sleep(6300);
-        frontLeft.setPower(0.2);
-        frontRight.setPower(0.2);
-        backLeft.setPower(0.2);
-        backRight.setPower(0.2);
-        sleep(8000);
+        frontLeft.setPower(0.3);
+        frontRight.setPower(0.3);
+        backLeft.setPower(0.3);
+        backRight.setPower(0.3);
+        sleep(7500);
 
 
 
@@ -76,8 +76,8 @@ public class MyFirstOPMode extends LinearOpMode {
         final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // No External Gearing.
         final double     WHEEL_DIAMETER_INCHES   = 4.1 ;     // For figuring circumference
         final double     COUNTS_PER_INCH         = 41.7;
-        final double     DRIVE_SPEED             = 0.3;
-        final double     TURN_SPEED              = 0.2;
+        final double     DRIVE_SPEED             = 0.5;
+        final double     TURN_SPEED              = 0.4;
 
 
 

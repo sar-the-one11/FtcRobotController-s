@@ -45,7 +45,7 @@ public class MyFirstOPMode extends LinearOpMode {
         frontRight.setPower(0.2);
         backLeft.setPower(0.2);
         backRight.setPower(0.2);
-        sleep(1500);
+        sleep(2000);
         frontLeft.setPower(-0.1);
         frontRight.setPower(-0.1);
         backLeft.setPower(-0.1);
@@ -76,8 +76,8 @@ public class MyFirstOPMode extends LinearOpMode {
         final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // No External Gearing.
         final double     WHEEL_DIAMETER_INCHES   = 4.1 ;     // For figuring circumference
         final double     COUNTS_PER_INCH         = 41.7;
-        final double     DRIVE_SPEED             = 0.3;
-        final double     TURN_SPEED              = 0.2;
+        final double     DRIVE_SPEED             = 0.5;
+        final double     TURN_SPEED              = 0.4;
 
 
 
