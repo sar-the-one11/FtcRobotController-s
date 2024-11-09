@@ -45,7 +45,7 @@ public class MyFirstOpMode_2ndver extends LinearOpMode {
         frontRight.setPower(0.3);
         backLeft.setPower(0.3);
         backRight.setPower(0.3);
-        sleep(3000);
+        sleep(4000);
         frontLeft.setPower(-0.2);
         frontRight.setPower(-0.2);
         backLeft.setPower(-0.2);
@@ -60,7 +60,7 @@ public class MyFirstOpMode_2ndver extends LinearOpMode {
         frontRight.setPower(0.3);
         backLeft.setPower(0.3);
         backRight.setPower(0.3);
-        sleep(7500);
+        sleep(6500);
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);

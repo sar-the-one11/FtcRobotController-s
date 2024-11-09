@@ -119,8 +119,8 @@ public class Teleop4wheelsaddarm extends LinearOpMode {
             // Set up a variable for each drive wheel to save the power level for telemetry.
             double leftFrontPower  = (axial + lateral + yaw) / 0.5;
             double rightFrontPower = (axial - lateral - yaw) / 0.5;
-            double leftBackPower   = (axial - lateral + yaw) / 0.5;;
-            double rightBackPower  = (axial + lateral - yaw) / 0.5;;
+            double leftBackPower   = (axial - lateral + yaw) / 0.5;
+            double rightBackPower  = (axial + lateral - yaw) / 0.5;
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
@@ -128,7 +128,7 @@ public class Teleop4wheelsaddarm extends LinearOpMode {
             max = Math.max(max, Math.abs(leftBackPower));
             max = Math.max(max, Math.abs(rightBackPower));
 
-            if (max > 0.5) {
+            if (max > 1) {
 
                 leftFrontPower  /= max;
                 rightFrontPower /= max;
