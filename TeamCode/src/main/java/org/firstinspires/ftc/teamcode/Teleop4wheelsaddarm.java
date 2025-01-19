@@ -33,6 +33,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
@@ -67,18 +69,19 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //@Disabled
 public class Teleop4wheelsaddarm extends LinearOpMode {
 
-    // Declare OpMode members for each of the 4 motors.
+    // Calling all motors into code
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftFrontDrive = null;
     private DcMotor leftBackDrive = null;
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
 
+
+
     @Override
     public void runOpMode() {
 
-        // Initialize the hardware variables. Note that the strings used here must correspond
-        // to the names assigned during the robot configuration step on the DS or RC devices.
+        // name all motors (Input these names into the driver hub and check that they correlate with the auto code)
         leftFrontDrive  = hardwareMap.get(DcMotor.class, "Left Upper");
         leftBackDrive  = hardwareMap.get(DcMotor.class, "Left Lower");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "Right Upper");
@@ -94,12 +97,12 @@ public class Teleop4wheelsaddarm extends LinearOpMode {
         // when you first test your robot, push the left joystick forward and observe the direction the wheels turn.
         // Reverse the direction (flip FORWARD <-> REVERSE ) of any wheel that runs backward
         // Keep testing until ALL the wheels move the robot forward when you push the left joystick forward.
-        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        // Wait for the game to start (driver presses START)
+        // Initialized when start is pressed
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -112,15 +115,15 @@ public class Teleop4wheelsaddarm extends LinearOpMode {
 
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
             double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-            double lateral =  gamepad1.left_stick_x;
-            double yaw     =  gamepad1.right_stick_x;
+            double lateral =  -gamepad1.left_stick_x;
+            double yaw     =  -gamepad1.right_stick_x;
 
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
             double leftFrontPower  = (axial + lateral + yaw) / 2;
             double rightFrontPower = (axial - lateral - yaw) / 2;
             double leftBackPower   = (axial - lateral + yaw) / 2;
-            double rightBackPower  = (axial + lateral - yaw) / 2                    ;
+            double rightBackPower  = (axial + lateral - yaw) / 2;
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
@@ -128,8 +131,7 @@ public class Teleop4wheelsaddarm extends LinearOpMode {
             max = Math.max(max, Math.abs(leftBackPower));
             max = Math.max(max, Math.abs(rightBackPower));
 
-            if (max > 1) {
-
+            if (max > 1.0) {
                 leftFrontPower  /= max;
                 rightFrontPower /= max;
                 leftBackPower   /= max;
@@ -161,9 +163,21 @@ public class Teleop4wheelsaddarm extends LinearOpMode {
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("left stick x/y:", "%4.2f, %4.2f", gamepad1.left_stick_x, -gamepad1.left_stick_y);
+            telemetry.addData("left stick x/y:", "%4.2f, %4.2f", gamepad1.right_stick_x, -gamepad1.right_stick_y);
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
             telemetry.update();
         }
-    }}
-        // arm coding
+
+
+
+
+
+
+
+
+    }
+
+
+}

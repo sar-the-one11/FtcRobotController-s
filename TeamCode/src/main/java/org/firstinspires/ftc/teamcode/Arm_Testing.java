@@ -15,7 +15,7 @@ public class Arm_Testing extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor LeaningArm_Left = null;
     private DcMotor LiftingArm_Right = null;
-   // private Servo   LeftClaw = null;
+    private Servo   sliderClaw = null;
 
 
     //Divide encoder resolution by 360 to get ticks per degree and then multiply by required degrees
@@ -25,9 +25,11 @@ public class Arm_Testing extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        LeaningArm_Left = hardwareMap.get(DcMotor.class, "sliderClaw");
-        LiftingArm_Right = hardwareMap.get(DcMotor.class,"sliderHook");
-       // LeftClaw = hardwareMap.get(Servo.class, "Left Claw");
+        LeaningArm_Left = hardwareMap.get(DcMotor.class, "Right Claw");
+        LiftingArm_Right = hardwareMap.get(DcMotor.class,"Left Hook");
+
+        // Maps claw
+        sliderClaw = hardwareMap.get(Servo.class, "servo");
 
 
         LeaningArm_Left.setDirection(DcMotor.Direction.FORWARD);
@@ -40,11 +42,13 @@ public class Arm_Testing extends LinearOpMode {
 
             boolean leanForward = gamepad1.dpad_up;
             boolean leanBackward = gamepad1.dpad_down;
-            // boolean openClaw = gamepad1.dpad_left;
-            // boolean closeClaw = gamepad1.dpad_right;
+            boolean openClaw = gamepad1.dpad_left;
+            boolean closeClaw = gamepad1.dpad_right;
+
 
             // boolean raiseUpwards = gamepad1.a;
             // Is this code even relevant because of the run to position code?
+
 
             if (leanForward) {
                 LeaningArm_Left.setPower(0.5); // Move arm forward
@@ -66,7 +70,17 @@ public class Arm_Testing extends LinearOpMode {
                // Would we need to include the code above in the if statement?
             // Would we need the right trigger code to put the rms at a specific angle be needed?
             // This code already sets the arm at an angle
-           if (gamepad1.b) {
+
+
+          if (gamepad1.dpad_left) {
+              sliderClaw.setPosition(0);
+          } else if (gamepad1.dpad_right) {
+              sliderClaw.setPosition(1);
+          } else {
+              sliderClaw.setPosition(0.5);
+          }
+
+            if (gamepad1.b) {
                LeaningArm_Left.setTargetPosition(LEANBACKWARDMAX);
                LiftingArm_Right.setTargetPosition(LEANBACKWARDMAX);
            }
@@ -79,6 +93,8 @@ public class Arm_Testing extends LinearOpMode {
 
 
             }
+
+
         }}
 
 

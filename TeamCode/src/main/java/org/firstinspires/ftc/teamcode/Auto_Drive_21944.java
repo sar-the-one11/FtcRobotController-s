@@ -20,11 +20,11 @@ public class Auto_Drive_21944 {
             backRight = hardwareMap.get(DcMotor.class, "Right Lower");
 
             // Map sliders
-            sliderClaw = hardwareMap.get(DcMotor.class, "sliderClaw");
-            sliderHook = hardwareMap.get(DcMotor.class, "sliderHook");
+            sliderClaw = hardwareMap.get(DcMotor.class, "Right Claw");
+            sliderHook = hardwareMap.get(DcMotor.class, "Left Claw");
 
             // Map servo (rack and pinion)
-            clawServo = hardwareMap.get(Servo.class, "Left Claw");
+            clawServo = hardwareMap.get(Servo.class, "Claw Servo");
 
             // Reverse motors (if we need to)
             frontLeft.setDirection(DcMotor.Direction.REVERSE);
