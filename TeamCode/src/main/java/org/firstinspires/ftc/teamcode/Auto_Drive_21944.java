@@ -46,9 +46,14 @@ public class Auto_Drive_21944 {
         @Override
         public void runOpMode() {
             robot.init(hardwareMap);
+            telemetry.addData("Status", "Initialized");
+            telemetry.update();
 
             // Wait for start button
             waitForStart();
+
+            telemetry.addData("Status", "Running");
+            telemetry.update();
 
             // MOVE TO ASSEMBLY
             moveToAssemblyZone();
@@ -76,6 +81,8 @@ public class Auto_Drive_21944 {
 
         private void moveToAssemblyZone() {
             drive(0.5, 0.5, 0.5, 0.5, 5000); // Move forward (filler times and speeds)
+            telemetry.addData("Action", "Moving to Assembly Zone");
+            telemetry.update();
         }
 
         private void placeSample() {
@@ -85,11 +92,16 @@ public class Auto_Drive_21944 {
             sleep(500);
             robot.sliderClaw.setPower(-0.5); // Retract claw arm
             sleep(1000);
-            robot.sliderClaw.setPower(0);    // Stop slider motor
+            robot.sliderClaw.setPower(0); // Stop slider motor
+
+            telemetry.addData("Action", "Moving to Place Sample");
+            telemetry.update();
         }
 
         private void exitAssemblyZone() {
             drive(-0.5, -0.5, -0.5, -0.5, 1000); // drive back to get outta assembly
+            telemetry.addData("Action", "Moving out of Assembly Zone");
+            telemetry.update();
         }
 
         private void retrieveSpecimen() {
@@ -101,7 +113,12 @@ public class Auto_Drive_21944 {
             robot.sliderClaw.setPower(-0.5);  // Retract claw arm
             sleep(1000);
             robot.sliderClaw.setPower(0);     // Stop slider motor
+
+            telemetry.addData("Action", "Moving to Assembly Zone");
+            telemetry.update();
+
         }
+
 
         private void hangSpecimen() {
             drive(0.5, 0.5, 0.5, 0.5, 2000);  // Drive to high chamber zone
@@ -110,6 +127,8 @@ public class Auto_Drive_21944 {
             robot.sliderHook.setPower(-1.0);  // Retract hook slider
             sleep(1500);
             robot.sliderHook.setPower(0);     // Stop slider motor
+            telemetry.addData("Action", "Moving to Hang Specimen");
+            telemetry.update();
         }
 
         private void parkInObservationZone() {
@@ -122,6 +141,11 @@ public class Auto_Drive_21944 {
             robot.frontRight.setPower(fr);
             robot.backLeft.setPower(bl);
             robot.backRight.setPower(br);
+
+            telemetry.addData("Drive", "FL: %.2f, FR: %.2f, BL: %.2f, BR: %.2f", fl, fr, bl, br);
+            telemetry.addData("Duration", duration);
+            telemetry.update();
+
             sleep(duration);
             stopMotors();
         }
@@ -132,6 +156,9 @@ public class Auto_Drive_21944 {
             robot.frontRight.setPower(0);
             robot.backLeft.setPower(0);
             robot.backRight.setPower(0);
+
+            telemetry.addData("Motors", "Stopped");
+            telemetry.update();
         }
     }
 }
