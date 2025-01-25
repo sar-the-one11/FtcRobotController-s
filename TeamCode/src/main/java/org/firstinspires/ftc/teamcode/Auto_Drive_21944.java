@@ -11,7 +11,7 @@ public class Auto_Drive_21944 {
     public class RobotHardware {
         public DcMotor frontLeft, frontRight, backLeft, backRight;
         public DcMotor sliderClaw, sliderHook;
-        public Servo clawServo;
+        public CRServo crServo;
 
         public void init(HardwareMap hardwareMap) {
             // Map wheels (fill in name)
@@ -25,7 +25,7 @@ public class Auto_Drive_21944 {
             sliderHook = hardwareMap.get(DcMotor.class, "Left Claw");
 
             // Map servo (rack and pinion)
-            clawServo = hardwareMap.get(Servo.class, "Claw Servo");
+            crServo = hardwareMap.get(CRServo.class, "servo");
 
             // Reverse motors (if we need to)
             frontLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -41,6 +41,7 @@ public class Auto_Drive_21944 {
     @Autonomous(name = "IntoTheDeepAuto", group = "FTC")
     public class IntoTheDeepAuto extends LinearOpMode {
         RobotHardware robot = new RobotHardware();
+        private final double SERVO_SPEED = 1.0;
 
         @Override
         public void runOpMode() {
@@ -80,7 +81,7 @@ public class Auto_Drive_21944 {
         private void placeSample() {
             robot.sliderClaw.setPower(0.5);  // Extend claw arm
             sleep(1000);                     // Adjust based on slider travel distance
-            robot.clawServo.setPosition(0.0); // Open claw to release the sample
+            robot.crServo.setPower(SERVO_SPEED); // Open claw to release the sample
             sleep(500);
             robot.sliderClaw.setPower(-0.5); // Retract claw arm
             sleep(1000);
@@ -95,7 +96,7 @@ public class Auto_Drive_21944 {
             drive(0.5, 0.5, 0.5, 0.5, 1000); // Drive back into assembly zone
             robot.sliderClaw.setPower(0.5);   // Extend claw arm
             sleep(1000);
-            robot.clawServo.setPosition(1.0); // Close claw to grab specimen
+            robot.crServo.setPower(-SERVO_SPEED); // Close claw to grab specimen
             sleep(500);
             robot.sliderClaw.setPower(-0.5);  // Retract claw arm
             sleep(1000);
