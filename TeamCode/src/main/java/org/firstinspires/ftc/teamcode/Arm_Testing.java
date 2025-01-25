@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -15,25 +16,27 @@ public class Arm_Testing extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor LeaningArm_Left = null;
     private DcMotor LiftingArm_Right = null;
-    private Servo   sliderClaw = null;
+    private CRServo crServo = null;
 
 
     //Divide encoder resolution by 360 to get ticks per degree and then multiply by required degrees
     final double LEANFORWARDMAX = 356.275;
     final int LEANBACKWARDMAX = 0;
-    // final int SERVOOPENMAX = ;
+    private final double SERVO_SPEED = 1.0; // Full speed, adjust
 
     @Override
     public void runOpMode() {
         LeaningArm_Left = hardwareMap.get(DcMotor.class, "Right Claw");
         LiftingArm_Right = hardwareMap.get(DcMotor.class,"Left Hook");
-
-        // Maps claw
-        sliderClaw = hardwareMap.get(Servo.class, "servo");
+        crServo = hardwareMap.get(CRServo.class, "servo");
+        // Maps claw and servo
 
 
         LeaningArm_Left.setDirection(DcMotor.Direction.FORWARD);
         LiftingArm_Right.setDirection(DcMotor.Direction.FORWARD);
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
         waitForStart();
         runtime.reset();
@@ -72,14 +75,6 @@ public class Arm_Testing extends LinearOpMode {
             // This code already sets the arm at an angle
 
 
-          if (gamepad1.dpad_left) {
-              sliderClaw.setPosition(0);
-          } else if (gamepad1.dpad_right) {
-              sliderClaw.setPosition(1);
-          } else {
-              sliderClaw.setPosition(0.5);
-          }
-
             if (gamepad1.b) {
                LeaningArm_Left.setTargetPosition(LEANBACKWARDMAX);
                LiftingArm_Right.setTargetPosition(LEANBACKWARDMAX);
@@ -89,10 +84,22 @@ public class Arm_Testing extends LinearOpMode {
                LeaningArm_Left.setPower(-0.3);
                LiftingArm_Right.setPower(-0.3);
 
-
-
-
             }
+        if (gamepad1.dpad_left) {
+            // Forward motion
+            crServo.setPower(SERVO_SPEED);
+        } else if (gamepad1.dpad_right) {
+            // Backward motion
+            crServo.setPower(-SERVO_SPEED);
+        } else {
+            // Stop the servo when no button is pressed
+            crServo.setPower(0);
+        }
+        telemetry.addData("CR Servo Power", crServo.getPower());
+        telemetry.addData("A Button", gamepad1.a ? "Pressed" : "Not Pressed");
+        telemetry.addData("B Button", gamepad1.b ? "Pressed" : "Not Pressed");
+        telemetry.update();
+    }
 
 
         }}
